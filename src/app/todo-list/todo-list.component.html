@@ -1,5 +1,7 @@
 <h2>My To-Do List</h2>
 <input type="text" name="taskInput" #taskInput (keyup.enter)="addTodo(taskInput.value)">
+<button (click)="addTodo(taskInput.value); taskInput.value=''">Add</button>
+<button (click)="markAllAsCompleted()">Mark All as Completed</button>
 <ul>
   @for (todo of todos; track $index) {
   <li> {{ todo.task }} <button (click)="deleteTodo(todo.id)">Delete</button></li>
