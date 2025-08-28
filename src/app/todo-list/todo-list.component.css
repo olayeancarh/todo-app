@@ -1,0 +1,11 @@
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+input[type="text"] {
+  margin: 10px 0;
+  padding: 5px;
+}
+button {
+  margin: 5px;
+}

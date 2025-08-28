@@ -1,9 +1,13 @@
 <h2>My To-Do List</h2>
-<input type="text" name="taskInput" #taskInput (keyup.enter)="addTodo(taskInput.value)">
+<input type="text" name="taskInput" #taskInput (keyup.enter)="addTodo(taskInput.value); taskInput.value=''">
 <button (click)="addTodo(taskInput.value); taskInput.value=''">Add</button>
 <button (click)="markAllAsCompleted()">Mark All as Completed</button>
 <ul>
   @for (todo of todos; track $index) {
-  <li> {{ todo.task }} <button (click)="deleteTodo(todo.id)">Delete</button></li>
+  <li [class.completed]="todo.completed">
+    <input type="checkbox" name="todo-{{ todo.id || $index }}" id="todo-{{ todo.id || $index }}" [checked]="todo.completed"
+      (change)="toggleTodo(todo.id)">
+    {{ todo.task }} <button (click)="deleteTodo(todo.id)">Delete</button>
+  </li>
   }
 </ul>

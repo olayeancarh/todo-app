@@ -20,9 +20,11 @@ export class TodoListComponent implements OnInit{
   }
 
   addTodo(task: string) {
-    const newTodo: Todo = { id: this.todos.length + 1, task, completed: false };
-    this.todos = [...this.todos, newTodo];
-    this.saveTodos();
+    if (task.trim()) {
+      const newTodo: Todo = { id: this.todos.length + 1, task, completed: false };
+      this.todos = [...this.todos, newTodo];
+      this.saveTodos();
+    }
   }
 
   toggleTodo(id: number) {
