@@ -49,6 +49,32 @@ test.describe('Todo App', () => {
     await expect(labels.nth(1)).toHaveClass(/text-decoration-line-through/);
   });
 
+  test('should clear completed todos', async ({ page }) => {
+    const input = page.getByPlaceholder('Add a new task');
+    await input.fill('Task 1');
+    await input.press('Enter');
+    await input.fill('Task 2');
+    await input.press('Enter');
+    // Complete Task 1
+    await page.locator('input[type="checkbox"]').first().check();
+    await page.getByRole('button', { name: /clear completed/i }).click();
+    await expect(page.getByText('Task 1')).not.toBeVisible();
+    await expect(page.getByText('Task 2')).toBeVisible();
+  });
+
+  test('should display correct remaining tasks count', async ({ page }) => {
+    const input = page.getByPlaceholder('Add a new task');
+    await input.fill('Task 1');
+    await input.press('Enter');
+    await input.fill('Task 2');
+    await input.press('Enter');
+    await expect(page.getByText(/Remaining Tasks: 2/)).toBeVisible();
+    await page.locator('input[type="checkbox"]').first().check();
+    await expect(page.getByText(/Remaining Tasks: 1/)).toBeVisible();
+    await page.getByRole('button', { name: /mark all as completed/i }).click();
+    await expect(page.getByText(/Remaining Tasks: 0/)).toBeVisible();
+  });
+
   test('should persist todos after reload', async ({ page }) => {
     const input = page.getByPlaceholder('Add a new task');
     await input.fill('Persistent Task');

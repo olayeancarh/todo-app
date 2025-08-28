@@ -1,22 +1,11 @@
-<!-- <h2>My To-Do List</h2>
-<input type="text" name="taskInput" #taskInput (keyup.enter)="addTodo(taskInput.value); taskInput.value=''">
-<button (click)="addTodo(taskInput.value); taskInput.value=''">Add</button>
-<button (click)="markAllAsCompleted()">Mark All as Completed</button>
-<ul>
-  @for (todo of todos; track $index) {
-  <li [class.completed]="todo.completed">
-    <input type="checkbox" name="todo-{{ todo.id || $index }}" id="todo-{{ todo.id || $index }}" [checked]="todo.completed"
-      (change)="toggleTodo(todo.id)">
-    {{ todo.task }} <button (click)="deleteTodo(todo.id)">Delete</button>
-  </li>
-  }
-</ul> -->
 <div class="input-group mb-3">
   <input type="text" class="form-control" placeholder="Add a new task" aria-label="Add a new task" aria-describedby="button-addon2"
     #taskInput (keyup.enter)="addTodo(taskInput.value); taskInput.value=''">
   <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="addTodo(taskInput.value); taskInput.value=''">Add</button>
   <button class="btn btn-outline-success" type="button" id="button-addon2" (click)="markAllAsCompleted()">Mark All as Completed</button>
+  <button class="btn btn-outline-danger" type="button" id="button-addon2" (click)="clearCompleted()">Clear Completed</button>
 </div>
+<p>Remaining Tasks: {{ remainingTasks }}</p>
 <ul class="list-group">
   @for (todo of todos; track $index) {
   <li class="list-group-item d-flex justify-content-between align-items-center" [class.completed]="todo.completed">

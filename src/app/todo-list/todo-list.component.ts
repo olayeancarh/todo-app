@@ -12,7 +12,7 @@ interface Todo {
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
 })
-export class TodoListComponent implements OnInit{
+export class TodoListComponent implements OnInit {
   todos: Todo[] = [];
 
   ngOnInit(): void {
@@ -40,6 +40,15 @@ export class TodoListComponent implements OnInit{
   markAllAsCompleted() {
     this.todos = this.todos.map(todo => ({ ...todo, completed: true }));
     this.saveTodos();
+  }
+
+  clearCompleted(): void {
+    this.todos = this.todos.filter(todo => !todo.completed);
+    this.saveTodos();
+  }
+
+  get remainingTasks(): number {
+    return this.todos?.filter(todo => !todo.completed).length ?? 0;
   }
 
   private saveTodos() {

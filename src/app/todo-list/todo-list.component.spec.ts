@@ -62,6 +62,26 @@ describe('TodoListComponent', () => {
     expect(component.todos.every(todo => todo.completed)).toBeTrue();
   });
 
+  it('should clear completed todos', () => {
+    component.addTodo('Task 1');
+    component.addTodo('Task 2');
+    const id1 = component.todos[0].id;
+    component.toggleTodo(id1); // Mark Task 1 as completed
+    component.clearCompleted();
+    expect(component.todos.length).toBe(1);
+    expect(component.todos[0].task).toBe('Task 2');
+  });
+
+  it('should return correct remainingTasks count', () => {
+    component.addTodo('Task 1');
+    component.addTodo('Task 2');
+    expect(component.remainingTasks).toBe(2);
+    component.toggleTodo(component.todos[0].id);
+    expect(component.remainingTasks).toBe(1);
+    component.markAllAsCompleted();
+    expect(component.remainingTasks).toBe(0);
+  });
+
   it('should persist todos to localStorage', () => {
     component.addTodo('Persist Task');
     const stored = JSON.parse(localStorage.getItem('todos') || '[]');
